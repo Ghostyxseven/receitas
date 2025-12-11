@@ -1,19 +1,18 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.IngredientService = void 0;
-const factories_1 = require("../../domain/factories");
 class IngredientService {
     constructor(ingredients) {
         this.ingredients = ingredients;
     }
     async create(data) {
-        const ingredient = (0, factories_1.createIngredient)({ name: data.name });
-        if (!ingredient.name)
+        const name = data.name.trim();
+        if (!name)
             throw new Error("Name is required");
-        const exists = await this.ingredients.findByName(ingredient.name);
+        const exists = await this.ingredients.findByName(name);
         if (exists)
             throw new Error("Ingredient name must be unique");
-        return this.ingredients.create(ingredient);
+        return this.ingredients.create({ name });
     }
     async list() {
         return this.ingredients.list();
@@ -26,9 +25,11 @@ class IngredientService {
     }
     async update(id, data) {
         if (data.name) {
-            const existing = await this.ingredients.findByName(data.name);
+            const name = data.name.trim();
+            const existing = await this.ingredients.findByName(name);
             if (existing && existing.id !== id)
                 throw new Error("Ingredient name must be unique");
+            return this.ingredients.update(id, { name });
         }
         return this.ingredients.update(id, data);
     }

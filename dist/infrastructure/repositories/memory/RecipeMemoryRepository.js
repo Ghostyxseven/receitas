@@ -16,13 +16,13 @@ class RecipeMemoryRepository {
     }
     async create(data) {
         const item = {
-            id: data.id,
-            title: data.title.trim(),
+            id: require("crypto").randomUUID(),
+            title: data.title,
             description: data.description,
             ingredients: [...data.ingredients],
             steps: [...data.steps],
             categoryId: data.categoryId,
-            createdAt: data.createdAt,
+            createdAt: new Date(),
         };
         this.items.push(item);
         return item;
@@ -34,7 +34,7 @@ class RecipeMemoryRepository {
         const current = this.items[idx];
         const updated = {
             ...current,
-            title: data.title !== undefined ? data.title.trim() : current.title,
+            title: data.title !== undefined ? data.title : current.title,
             description: data.description !== undefined ? data.description : current.description,
             ingredients: data.ingredients !== undefined ? [...data.ingredients] : current.ingredients,
             steps: data.steps !== undefined ? [...data.steps] : current.steps,

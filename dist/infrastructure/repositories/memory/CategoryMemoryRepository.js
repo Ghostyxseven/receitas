@@ -17,9 +17,9 @@ class CategoryMemoryRepository {
     }
     async create(data) {
         const item = {
-            id: data.id,
-            name: data.name.trim(),
-            createdAt: data.createdAt,
+            id: require("crypto").randomUUID(),
+            name: data.name,
+            createdAt: new Date(),
         };
         this.items.push(item);
         return item;
@@ -31,7 +31,7 @@ class CategoryMemoryRepository {
         const current = this.items[idx];
         const updated = {
             ...current,
-            name: data.name !== undefined ? data.name.trim() : current.name,
+            name: data.name !== undefined ? data.name : current.name,
         };
         this.items[idx] = updated;
         return updated;

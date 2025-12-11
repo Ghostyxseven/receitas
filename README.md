@@ -11,7 +11,6 @@ Aplicação em camadas (SRP) construída com Node.js, TypeScript e Express, com 
 - Endpoints
 - Exemplos rápidos (Windows)
 - Estrutura do projeto
-- Trocar implementações via DI
 
 ## Visão Geral
 - CRUD de Categorias, Ingredientes e Receitas.
@@ -23,20 +22,18 @@ Aplicação em camadas (SRP) construída com Node.js, TypeScript e Express, com 
 
 ## Arquitetura
 - `domain`: entidades e contratos de repositório.
-- `infrastructure`: implementações concretas (aqui, memória) e contêiner DI.
+- `infrastructure`: implementações concretas (aqui, memória).
 - `application`: serviços de negócio, sem HTTP ou detalhes de persistência.
 - `presentation`: API HTTP (Express), rotas, middlewares e composição.
 
-Referências úteis no código:
+- Referências úteis no código:
 - Servidor e composição: `src/presentation/http/server.ts`.
-- Contêiner DI: `src/infrastructure/di/container.ts`.
 - Serviços: `src/application/services/*Service.ts`.
 - Rotas: `src/presentation/http/routes/*.ts`.
 
-### Fábricas de domínio
-- `src/domain/factories.ts` centraliza a criação de entidades (`Category`, `Ingredient`, `Recipe`).
-- As fábricas geram `id` (`randomUUID`) e `createdAt` (`new Date`), fazem `trim` e copiam arrays.
-- Os serviços usam as fábricas e passam a entidade criada para os repositórios.
+### Criação e persistência
+- Os repositórios geram `id` e `createdAt` ao persistir uma entidade.
+- Os serviços validam e normalizam entradas (ex.: `trim` de `name`/`title`) e delegam a criação aos repositórios.
 
 ## Pré-requisitos
 - Node.js 18+ (recomendado 20+)
@@ -128,8 +125,6 @@ receitas/
 │  │     ├─ ICategoryRepository.ts
 │  │     └─ IRecipeRepository.ts
 │  ├─ infrastructure/
-│  │  ├─ di/
-│  │  │  └─ container.ts
 │  │  └─ repositories/
 │  │     └─ memory/
 │  │        ├─ CategoryMemoryRepository.ts
@@ -157,13 +152,11 @@ receitas/
 └─ README.md
 ```
 
-## Trocar implementações via DI
-Altere apenas os registros do contêiner em `src/infrastructure/di/container.ts`:
-- Substitua `*MemoryRepository` por implementações de banco (ex.: SQLite/PostgreSQL).
-- Os serviços e rotas permanecem inalterados porque dependem dos contratos (`ICategoryRepository`, `IIngredientRepository`, `IRecipeRepository`).
+## Composição do servidor
+- O servidor instancia diretamente os repositórios em memória e os serviços.
 
 ### Observação sobre DTOs de criação
-- Os repositórios recebem entidades já criadas com `id` e `createdAt` (gerados pelo serviço/fábrica).
+- Os repositórios recebem entidades já criadas com `id` e `createdAt` (gerados pela fábrica/serviço).
 - As requisições HTTP enviam apenas os campos de entrada (ex.: `{ name }` para categoria/ingrediente; `{ title, description?, ingredients[], steps[], categoryId }` para receita).
 
 ## Scripts

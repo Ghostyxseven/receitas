@@ -2,7 +2,9 @@ import express from "express"
 import { CategoryService } from "../../application/services/CategoryService"
 import { RecipeService } from "../../application/services/RecipeService"
 import { IngredientService } from "../../application/services/IngredientService"
-import { container } from "../../infrastructure/di/container"
+import { CategoryMemoryRepository } from "../../infrastructure/repositories/memory/CategoryMemoryRepository"
+import { IngredientMemoryRepository } from "../../infrastructure/repositories/memory/IngredientMemoryRepository"
+import { RecipeMemoryRepository } from "../../infrastructure/repositories/memory/RecipeMemoryRepository"
 import { categoriesRoutes } from "./routes/categories"
 import { recipesRoutes } from "./routes/recipes"
 import { ingredientsRoutes } from "./routes/ingredients"
@@ -11,9 +13,13 @@ import { errorHandler } from "./middlewares/errorHandler"
 const app = express()
 app.use(express.json())
 
-const categoryService = container.get(CategoryService)
-const recipeService = container.get(RecipeService)
-const ingredientService = container.get(IngredientService)
+const categoryRepository = new CategoryMemoryRepository()
+const ingredientRepository = new IngredientMemoryRepository()
+const recipeRepository = new RecipeMemoryRepository()
+
+const categoryService = new CategoryService(categoryRepository, recipeRepository)
+const recipeService = new RecipeService(recipeRepository, categoryRepository)
+const ingredientService = new IngredientService(ingredientRepository)
 
 app.use("/categories", categoriesRoutes(categoryService))
 app.use("/recipes", recipesRoutes(recipeService))

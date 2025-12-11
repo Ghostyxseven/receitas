@@ -1,7 +1,7 @@
 import { ICategoryRepository } from "../../domain/repositories/ICategoryRepository"
 import { IRecipeRepository } from "../../domain/repositories/IRecipeRepository"
 import { Category } from "../../domain/entities/Category"
-import { createCategory } from "../../domain/factories"
+ 
 
 export class CategoryService {
   constructor(
@@ -10,11 +10,11 @@ export class CategoryService {
   ) {}
 
   async create(data: { name: string }): Promise<Category> {
-    const category = createCategory({ name: data.name })
-    if (!category.name) throw new Error("Name is required")
-    const exists = await this.categories.findByName(category.name)
+    const name = data.name.trim()
+    if (!name) throw new Error("Name is required")
+    const exists = await this.categories.findByName(name)
     if (exists) throw new Error("Category name must be unique")
-    return this.categories.create(category)
+    return this.categories.create({ name })
   }
 
   async list(): Promise<Category[]> {
@@ -32,9 +32,11 @@ export class CategoryService {
     data: { name?: string }
   ): Promise<Category> {
     if (data.name) {
-      const existing = await this.categories.findByName(data.name)
+      const name = data.name.trim()
+      const existing = await this.categories.findByName(name)
       if (existing && existing.id !== id)
         throw new Error("Category name must be unique")
+      return this.categories.update(id, { name })
     }
     return this.categories.update(id, data)
   }

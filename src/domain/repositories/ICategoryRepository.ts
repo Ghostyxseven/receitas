@@ -1,9 +1,7 @@
 import { Category } from "../entities/Category"
 
 export type CreateCategoryDTO = {
-  id: string
   name: string
-  createdAt: Date
 }
 
 export interface ICategoryRepository {

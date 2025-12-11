@@ -1,20 +1,19 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CategoryService = void 0;
-const factories_1 = require("../../domain/factories");
 class CategoryService {
     constructor(categories, recipes) {
         this.categories = categories;
         this.recipes = recipes;
     }
     async create(data) {
-        const category = (0, factories_1.createCategory)({ name: data.name });
-        if (!category.name)
+        const name = data.name.trim();
+        if (!name)
             throw new Error("Name is required");
-        const exists = await this.categories.findByName(category.name);
+        const exists = await this.categories.findByName(name);
         if (exists)
             throw new Error("Category name must be unique");
-        return this.categories.create(category);
+        return this.categories.create({ name });
     }
     async list() {
         return this.categories.list();
@@ -27,9 +26,11 @@ class CategoryService {
     }
     async update(id, data) {
         if (data.name) {
-            const existing = await this.categories.findByName(data.name);
+            const name = data.name.trim();
+            const existing = await this.categories.findByName(name);
             if (existing && existing.id !== id)
                 throw new Error("Category name must be unique");
+            return this.categories.update(id, { name });
         }
         return this.categories.update(id, data);
     }

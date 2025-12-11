@@ -1,13 +1,11 @@
 import { Recipe } from "../entities/Recipe"
 
 export type CreateRecipeDTO = {
-  id: string
   title: string
   description?: string
   ingredients: string[]
   steps: string[]
   categoryId: string
-  createdAt: Date
 }
 
 export interface IRecipeRepository {

@@ -24,9 +24,9 @@ export class IngredientMemoryRepository implements IIngredientRepository {
 
   async create(data: CreateIngredientDTO): Promise<Ingredient> {
     const item: Ingredient = {
-      id: data.id,
-      name: data.name.trim(),
-      createdAt: data.createdAt,
+      id: require("crypto").randomUUID(),
+      name: data.name,
+      createdAt: new Date(),
     }
     this.items.push(item)
     return item
@@ -41,7 +41,7 @@ export class IngredientMemoryRepository implements IIngredientRepository {
     const current = this.items[idx]
     const updated: Ingredient = {
       ...current,
-      name: data.name !== undefined ? data.name.trim() : current.name,
+      name: data.name !== undefined ? data.name : current.name,
     }
     this.items[idx] = updated
     return updated

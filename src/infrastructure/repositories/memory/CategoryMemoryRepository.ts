@@ -24,9 +24,9 @@ export class CategoryMemoryRepository implements ICategoryRepository {
 
   async create(data: CreateCategoryDTO): Promise<Category> {
     const item: Category = {
-      id: data.id,
-      name: data.name.trim(),
-      createdAt: data.createdAt,
+      id: require("crypto").randomUUID(),
+      name: data.name,
+      createdAt: new Date(),
     }
     this.items.push(item)
     return item
@@ -38,7 +38,7 @@ export class CategoryMemoryRepository implements ICategoryRepository {
     const current = this.items[idx]
     const updated: Category = {
       ...current,
-      name: data.name !== undefined ? data.name.trim() : current.name,
+      name: data.name !== undefined ? data.name : current.name,
     }
     this.items[idx] = updated
     return updated

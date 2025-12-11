@@ -1,9 +1,7 @@
 import { Ingredient } from "../entities/Ingredient"
 
 export type CreateIngredientDTO = {
-  id: string
   name: string
-  createdAt: Date
 }
 
 export interface IIngredientRepository {

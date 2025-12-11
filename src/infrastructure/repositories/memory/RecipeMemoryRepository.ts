@@ -21,13 +21,13 @@ export class RecipeMemoryRepository implements IRecipeRepository {
 
   async create(data: CreateRecipeDTO): Promise<Recipe> {
     const item: Recipe = {
-      id: data.id,
-      title: data.title.trim(),
+      id: require("crypto").randomUUID(),
+      title: data.title,
       description: data.description,
       ingredients: [...data.ingredients],
       steps: [...data.steps],
       categoryId: data.categoryId,
-      createdAt: data.createdAt,
+      createdAt: new Date(),
     }
     this.items.push(item)
     return item
@@ -42,7 +42,7 @@ export class RecipeMemoryRepository implements IRecipeRepository {
     const current = this.items[idx]
     const updated: Recipe = {
       ...current,
-      title: data.title !== undefined ? data.title.trim() : current.title,
+      title: data.title !== undefined ? data.title : current.title,
       description:
         data.description !== undefined ? data.description : current.description,
       ingredients:

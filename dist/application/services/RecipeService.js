@@ -1,26 +1,25 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.RecipeService = void 0;
-const factories_1 = require("../../domain/factories");
 class RecipeService {
     constructor(recipes, categories) {
         this.recipes = recipes;
         this.categories = categories;
     }
     async create(input) {
-        const recipe = (0, factories_1.createRecipe)({
-            title: input.title,
+        const title = input.title.trim();
+        if (!title)
+            throw new Error("Title is required");
+        const category = await this.categories.findById(input.categoryId);
+        if (!category)
+            throw new Error("Category does not exist");
+        return this.recipes.create({
+            title,
             description: input.description,
             ingredients: input.ingredients,
             steps: input.steps,
             categoryId: input.categoryId,
         });
-        if (!recipe.title)
-            throw new Error("Title is required");
-        const category = await this.categories.findById(input.categoryId);
-        if (!category)
-            throw new Error("Category does not exist");
-        return this.recipes.create(recipe);
     }
     async list(filter) {
         const items = filter?.categoryId
@@ -47,8 +46,12 @@ class RecipeService {
             if (!category)
                 throw new Error("Category does not exist");
         }
-        if (data.title !== undefined && !data.title.trim())
-            throw new Error("Title is required");
+        if (data.title !== undefined) {
+            const title = data.title.trim();
+            if (!title)
+                throw new Error("Title is required");
+            return this.recipes.update(id, { ...data, title });
+        }
         return this.recipes.update(id, data);
     }
     async delete(id) {

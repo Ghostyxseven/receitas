@@ -1,16 +1,16 @@
 import { IIngredientRepository } from "../../domain/repositories/IIngredientRepository"
 import { Ingredient } from "../../domain/entities/Ingredient"
-import { createIngredient } from "../../domain/factories"
+ 
 
 export class IngredientService {
   constructor(private readonly ingredients: IIngredientRepository) {}
 
   async create(data: { name: string }): Promise<Ingredient> {
-    const ingredient = createIngredient({ name: data.name })
-    if (!ingredient.name) throw new Error("Name is required")
-    const exists = await this.ingredients.findByName(ingredient.name)
+    const name = data.name.trim()
+    if (!name) throw new Error("Name is required")
+    const exists = await this.ingredients.findByName(name)
     if (exists) throw new Error("Ingredient name must be unique")
-    return this.ingredients.create(ingredient)
+    return this.ingredients.create({ name })
   }
 
   async list(): Promise<Ingredient[]> {
@@ -28,9 +28,11 @@ export class IngredientService {
     data: { name?: string }
   ): Promise<Ingredient> {
     if (data.name) {
-      const existing = await this.ingredients.findByName(data.name)
+      const name = data.name.trim()
+      const existing = await this.ingredients.findByName(name)
       if (existing && existing.id !== id)
         throw new Error("Ingredient name must be unique")
+      return this.ingredients.update(id, { name })
     }
     return this.ingredients.update(id, data)
   }
