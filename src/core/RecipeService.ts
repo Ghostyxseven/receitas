@@ -1,6 +1,6 @@
 import crypto from "node:crypto"
 import { store } from "./store.js"
-import { Recipe, CreateRecipeInput } from "./models.js"
+import { Recipe, CreateRecipeInput, RecipeStatus } from "./models.js"
 import { CategoryService } from "./CategoryService.js"
 import { IngredientService } from "./IngredientService.js"
 import { IRecipeService } from "./interfaces/IRecipeService.js"
@@ -22,7 +22,10 @@ export class RecipeService implements IRecipeService {
     }
 
     let items = [...store.recipes]
-
+    
+    // Apenas receitas published aparecem nas listagens públicas
+    items = items.filter(r => r.status === "published")
+    
     if (categoryId) {
       items = items.filter(r => r.categoryId === categoryId)
     }
@@ -87,6 +90,12 @@ export class RecipeService implements IRecipeService {
     const servings = Number(input.servings)
     if (!(servings > 0)) throw new Error("Servings must be greater than 0")
 
+    // Status padrão é "draft" se não informado
+    const status: RecipeStatus = input.status || "draft"
+    if (!["draft", "published", "archived"].includes(status)) {
+      throw new Error("Invalid status. Must be 'draft', 'published' or 'archived'")
+    }
+
     const recipe: Recipe = {
       id: crypto.randomUUID(),
       title,
@@ -95,6 +104,7 @@ export class RecipeService implements IRecipeService {
       steps,
       servings,
       categoryId: input.categoryId,
+      status,
       createdAt: new Date(),
     }
     store.recipes.push(recipe)
@@ -105,6 +115,11 @@ export class RecipeService implements IRecipeService {
     const idx = store.recipes.findIndex(r => r.id === id)
     if (idx < 0) throw new Error("Recipe not found")
     const current = store.recipes[idx]
+
+    // Receitas archived não podem ser editadas
+    if (current.status === "archived") {
+      throw new Error("Archived recipes cannot be edited")
+    }
 
     const updated = { ...current }
 
@@ -158,61 +173,30 @@ export class RecipeService implements IRecipeService {
       updated.ingredients = resolved
     }
 
+    // Atualizar status se fornecido
+    if (data.status !== undefined) {
+      const status = data.status
+      if (!["draft", "published", "archived"].includes(status)) {
+        throw new Error("Invalid status. Must be 'draft', 'published' or 'archived'")
+      }
+      updated.status = status
+    }
+
     store.recipes[idx] = updated
     return updated
   }
 
   async delete(id: string): Promise<void> {
     const idx = store.recipes.findIndex(r => r.id === id)
-    if (idx >= 0) {
-      store.recipes.splice(idx, 1)
-    }
-  }
-  
-  
-  async generateShoppingList(recipeIds: string[]): Promise<{ ingredientId: string; ingredientName: string; unit: string; totalQuantity: number }[]> {
+    if (idx < 0) throw new Error("Recipe not found")
     
+    const recipe = store.recipes[idx]
     
-    if (!Array.isArray(recipeIds) || recipeIds.length === 0) {
-      throw new Error("Recipe IDs array is required and must not be empty")
+    // Receitas published não podem ser excluídas, apenas arquivadas
+    if (recipe.status === "published") {
+      throw new Error("Published recipes cannot be deleted. They must be archived first")
     }
-
-     
-    const shoppingCart = new Map<string, { ingredientId: string; unit: string; totalQuantity: number }>()
-
-    for (const id of recipeIds) {
-      const recipe = await this.get(id)
-      
-      for (const item of recipe.ingredients) {
-        const key = `${item.ingredientId}:::${item.unit}`
-        
-        
-        if (shoppingCart.has(key)) {
-          const existing = shoppingCart.get(key)!
-          existing.totalQuantity += item.quantity
-        } else {
-          
-          shoppingCart.set(key, {
-            ingredientId: item.ingredientId,
-            unit: item.unit,
-            totalQuantity: item.quantity
-          })
-        }
-      }
-    }
-
-    const result = []
     
-    for (const item of shoppingCart.values()) {
-      const ingredient = await this.ingredientService.get(item.ingredientId)
-      result.push({
-        ingredientId: item.ingredientId,
-        ingredientName: ingredient.name,
-        unit: item.unit,
-        totalQuantity: item.totalQuantity
-      })
-    }
-
-    return result
+    store.recipes.splice(idx, 1)
   }
 }
