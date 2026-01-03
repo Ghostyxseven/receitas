@@ -168,42 +168,51 @@ export class RecipeService implements IRecipeService {
       store.recipes.splice(idx, 1)
     }
   }
-
-  async scaleRecipe(id: string, portions: number) {
-    // Parte 1: validações iniciais
-    if (!(portions > 0)) {
-      throw new Error("Servings must be greater than 0");
+  
+  
+  async generateShoppingList(recipeIds: string[]): Promise<{ ingredientId: string; ingredientName: string; unit: string; totalQuantity: number }[]> {
+    
+    
+    if (!Array.isArray(recipeIds) || recipeIds.length === 0) {
+      throw new Error("Recipe IDs array is required and must not be empty")
     }
 
-    // Buscar receita original pelo ID
-    const recipe = await this.get(id);
-    if (!recipe) {
-      throw new Error("Recipe not found");
+     
+    const shoppingCart = new Map<string, { ingredientId: string; unit: string; totalQuantity: number }>()
+
+    for (const id of recipeIds) {
+      const recipe = await this.get(id)
+      
+      for (const item of recipe.ingredients) {
+        const key = `${item.ingredientId}:::${item.unit}`
+        
+        
+        if (shoppingCart.has(key)) {
+          const existing = shoppingCart.get(key)!
+          existing.totalQuantity += item.quantity
+        } else {
+          
+          shoppingCart.set(key, {
+            ingredientId: item.ingredientId,
+            unit: item.unit,
+            totalQuantity: item.quantity
+          })
+        }
+      }
     }
 
-    // Cálculo do fator de escala
-    const factor = portions / recipe.servings;
-
-    // Cria uma cópia imutável dos ingredientes escalados
-    const scaledIngredients = recipe.ingredients.map((item) => {
-      return {
+    const result = []
+    
+    for (const item of shoppingCart.values()) {
+      const ingredient = await this.ingredientService.get(item.ingredientId)
+      result.push({
         ingredientId: item.ingredientId,
-        quantity: item.quantity * factor,
+        ingredientName: ingredient.name,
         unit: item.unit,
-      };
-    });
+        totalQuantity: item.totalQuantity
+      })
+    }
 
-    // Monta uma nova receita (sem alterar a original)
-    const scaledRecipe = {
-      ...recipe, // copia todos os dados da receita original
-      servings: portions, // atualiza apenas o número de porções
-      ingredients: scaledIngredients, // usa o novo array calculado
-      id: recipe.id, // mantém o mesmo id (é apenas uma cópia)
-    };
-
-    // Retorna a nova versão da receita
-    return scaledRecipe;
-
+    return result
   }
-
 }
