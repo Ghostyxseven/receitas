@@ -168,4 +168,51 @@ export class RecipeService implements IRecipeService {
       store.recipes.splice(idx, 1)
     }
   }
+  
+  
+  async generateShoppingList(recipeIds: string[]): Promise<{ ingredientId: string; ingredientName: string; unit: string; totalQuantity: number }[]> {
+    
+    
+    if (!Array.isArray(recipeIds) || recipeIds.length === 0) {
+      throw new Error("Recipe IDs array is required and must not be empty")
+    }
+
+     
+    const shoppingCart = new Map<string, { ingredientId: string; unit: string; totalQuantity: number }>()
+
+    for (const id of recipeIds) {
+      const recipe = await this.get(id)
+      
+      for (const item of recipe.ingredients) {
+        const key = `${item.ingredientId}:::${item.unit}`
+        
+        
+        if (shoppingCart.has(key)) {
+          const existing = shoppingCart.get(key)!
+          existing.totalQuantity += item.quantity
+        } else {
+          
+          shoppingCart.set(key, {
+            ingredientId: item.ingredientId,
+            unit: item.unit,
+            totalQuantity: item.quantity
+          })
+        }
+      }
+    }
+
+    const result = []
+    
+    for (const item of shoppingCart.values()) {
+      const ingredient = await this.ingredientService.get(item.ingredientId)
+      result.push({
+        ingredientId: item.ingredientId,
+        ingredientName: ingredient.name,
+        unit: item.unit,
+        totalQuantity: item.totalQuantity
+      })
+    }
+
+    return result
+  }
 }
