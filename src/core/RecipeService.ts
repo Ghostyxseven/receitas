@@ -34,7 +34,7 @@ export class RecipeService implements IRecipeService {
       const searchQuery = filter.search.trim().toLowerCase()
       const allIngredients = await this.ingredientService.list()
       const nameById = new Map(allIngredients.map((ing) => [ing.id, ing.name.toLowerCase()]))
-      
+
       items = items.filter((recipe) => {
         if (recipe.title.toLowerCase().includes(searchQuery)) return true
         if (recipe.description && recipe.description.toLowerCase().includes(searchQuery)) return true
@@ -64,10 +64,10 @@ export class RecipeService implements IRecipeService {
     // Process Ingredients
     const incoming = Array.isArray(input.ingredients)
       ? input.ingredients.map((i) => ({
-          name: String(i.name ?? "").trim(),
-          quantity: Number(i.quantity ?? 0),
-          unit: String(i.unit ?? "").trim(),
-        }))
+        name: String(i.name ?? "").trim(),
+        quantity: Number(i.quantity ?? 0),
+        unit: String(i.unit ?? "").trim(),
+      }))
       : []
 
     if (incoming.length === 0) throw new Error("Ingredients are required")
@@ -86,7 +86,7 @@ export class RecipeService implements IRecipeService {
     }
 
     const steps = Array.isArray(input.steps) ? input.steps.map((s) => String(s)) : []
-    
+
     const servings = Number(input.servings)
     if (!(servings > 0)) throw new Error("Servings must be greater than 0")
 
@@ -152,10 +152,10 @@ export class RecipeService implements IRecipeService {
     if (data.ingredients !== undefined) {
       const incoming = Array.isArray(data.ingredients)
         ? data.ingredients.map((i) => ({
-            name: String(i.name ?? "").trim(),
-            quantity: Number(i.quantity ?? 0),
-            unit: String(i.unit ?? "").trim(),
-          }))
+          name: String(i.name ?? "").trim(),
+          quantity: Number(i.quantity ?? 0),
+          unit: String(i.unit ?? "").trim(),
+        }))
         : []
 
       incoming.forEach((i) => {
