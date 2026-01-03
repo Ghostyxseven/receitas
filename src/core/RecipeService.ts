@@ -22,7 +22,7 @@ export class RecipeService implements IRecipeService {
     }
 
     let items = [...store.recipes]
-    
+
     if (categoryId) {
       items = items.filter(r => r.categoryId === categoryId)
     }
@@ -31,7 +31,7 @@ export class RecipeService implements IRecipeService {
       const searchQuery = filter.search.trim().toLowerCase()
       const allIngredients = await this.ingredientService.list()
       const nameById = new Map(allIngredients.map((ing) => [ing.id, ing.name.toLowerCase()]))
-      
+
       items = items.filter((recipe) => {
         if (recipe.title.toLowerCase().includes(searchQuery)) return true
         if (recipe.description && recipe.description.toLowerCase().includes(searchQuery)) return true
@@ -61,10 +61,10 @@ export class RecipeService implements IRecipeService {
     // Process Ingredients
     const incoming = Array.isArray(input.ingredients)
       ? input.ingredients.map((i) => ({
-          name: String(i.name ?? "").trim(),
-          quantity: Number(i.quantity ?? 0),
-          unit: String(i.unit ?? "").trim(),
-        }))
+        name: String(i.name ?? "").trim(),
+        quantity: Number(i.quantity ?? 0),
+        unit: String(i.unit ?? "").trim(),
+      }))
       : []
 
     if (incoming.length === 0) throw new Error("Ingredients are required")
@@ -83,7 +83,7 @@ export class RecipeService implements IRecipeService {
     }
 
     const steps = Array.isArray(input.steps) ? input.steps.map((s) => String(s)) : []
-    
+
     const servings = Number(input.servings)
     if (!(servings > 0)) throw new Error("Servings must be greater than 0")
 
@@ -137,10 +137,10 @@ export class RecipeService implements IRecipeService {
     if (data.ingredients !== undefined) {
       const incoming = Array.isArray(data.ingredients)
         ? data.ingredients.map((i) => ({
-            name: String(i.name ?? "").trim(),
-            quantity: Number(i.quantity ?? 0),
-            unit: String(i.unit ?? "").trim(),
-          }))
+          name: String(i.name ?? "").trim(),
+          quantity: Number(i.quantity ?? 0),
+          unit: String(i.unit ?? "").trim(),
+        }))
         : []
 
       incoming.forEach((i) => {
@@ -168,4 +168,42 @@ export class RecipeService implements IRecipeService {
       store.recipes.splice(idx, 1)
     }
   }
+
+  async scaleRecipe(id: string, portions: number) {
+    // Parte 1: validações iniciais
+    if (!(portions > 0)) {
+      throw new Error("Servings must be greater than 0");
+    }
+
+    // Buscar receita original pelo ID
+    const recipe = await this.get(id);
+    if (!recipe) {
+      throw new Error("Recipe not found");
+    }
+
+    // Cálculo do fator de escala
+    const factor = portions / recipe.servings;
+
+    // Cria uma cópia imutável dos ingredientes escalados
+    const scaledIngredients = recipe.ingredients.map((item) => {
+      return {
+        ingredientId: item.ingredientId,
+        quantity: item.quantity * factor,
+        unit: item.unit,
+      };
+    });
+
+    // Monta uma nova receita (sem alterar a original)
+    const scaledRecipe = {
+      ...recipe, // copia todos os dados da receita original
+      servings: portions, // atualiza apenas o número de porções
+      ingredients: scaledIngredients, // usa o novo array calculado
+      id: recipe.id, // mantém o mesmo id (é apenas uma cópia)
+    };
+
+    // Retorna a nova versão da receita
+    return scaledRecipe;
+
+  }
+
 }
