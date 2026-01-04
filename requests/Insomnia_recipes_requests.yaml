@@ -2,15 +2,15 @@ type: collection.insomnia.rest/5.0
 schema_version: "5.1"
 name: Recipes
 meta:
-  id: wrk_eafe238138504c7fa4e1306391b621fc
-  created: 1767479852159
-  modified: 1767479852159
+  id: wrk_015af0f5e869478f9b460e31beabdb89
+  created: 1767560845877
+  modified: 1767560845877
   description: ""
 collection:
   - url: "{{baseUrl}}/categories"
     name: List Categories
     meta:
-      id: req_f8c1201578644c24a7a69089071f6633
+      id: req_115e97e8abe14f2f98730287a35d4532
       created: 1765412665489
       modified: 1765984087256
       isPrivate: false
@@ -33,7 +33,7 @@ collection:
   - url: "{{baseUrl}}/categories"
     name: Create Category
     meta:
-      id: req_31300c36e53a4b43b043634d7b64b99f
+      id: req_e859ea147f29434ebbbae3e6ad2053ad
       created: 1765412821874
       modified: 1767483904208
       isPrivate: false
@@ -65,7 +65,7 @@ collection:
   - url: "{{baseUrl}}/categories/1de3de75-1f03-419e-ad86-d803d296ea17"
     name: Show Category
     meta:
-      id: req_9a9e549ab6ad493db5f8038904592d04
+      id: req_f7eafa3cfb714af08ba4c6d7389fa367
       created: 1765414569582
       modified: 1765984098022
       isPrivate: false
@@ -88,7 +88,7 @@ collection:
   - url: "{{baseUrl}}/recipes"
     name: List Recipes
     meta:
-      id: req_558103fe68164d24910bbdc797a39aae
+      id: req_5f3ff8fd50514128a348227c387035eb
       created: 1765414773717
       modified: 1765984124734
       isPrivate: false
@@ -111,7 +111,7 @@ collection:
   - url: "{{baseUrl}}/ingredients"
     name: List Ingredients
     meta:
-      id: req_099a8d0167744809afb725abbd7338e2
+      id: req_7ef37dc62a404cd996ab77a849fd03ce
       created: 1765414831438
       modified: 1765984109514
       isPrivate: false
@@ -134,7 +134,7 @@ collection:
   - url: "{{baseUrl}}/ingredients"
     name: Create Ingredient
     meta:
-      id: req_c26e455ec71c4e24a26b4bb845fe46a7
+      id: req_336ba74e069a43fcbc32024cebfa27d4
       created: 1765980252169
       modified: 1765982776294
       isPrivate: false
@@ -162,7 +162,7 @@ collection:
   - url: "{{baseUrl}}/recipes"
     name: Create Recipe [ bolo de cenoura ]
     meta:
-      id: req_0a64aa5b1b0846669b47cde9feb2881d
+      id: req_3716f6b51757491b91dd7632cea3a0b9
       created: 1765980403434
       modified: 1767482381036
       isPrivate: false
@@ -218,7 +218,7 @@ collection:
   - url: "{{baseUrl}}/recipes/5fd063f2-97bc-4451-86e2-aa4a3a50326a"
     name: Show Recipe
     meta:
-      id: req_f121be83f59d473bbe13bf0d086a224e
+      id: req_cafd9e12f8024269b72196e7e71edffd
       created: 1765980696089
       modified: 1765987699104
       isPrivate: false
@@ -241,7 +241,7 @@ collection:
   - url: "{{baseUrl}}/recipes/3dff9a9f-2c10-4567-b51a-4dbe42c9d04f"
     name: Update Recipe
     meta:
-      id: req_19bc14a2d0364d7e966d7b651662fea3
+      id: req_2b30273648f346439e9a95f528a67d8d
       created: 1765980898367
       modified: 1765980974664
       isPrivate: false
@@ -272,7 +272,7 @@ collection:
   - url: "{{baseUrl}}/recipes?categoryName=Sobremesas"
     name: List Recipes [CategoryName]
     meta:
-      id: req_5dfad6f51c0c47ebb7a64b8546d580cb
+      id: req_206c1f18a7164404833af77989043dcc
       created: 1765981937371
       modified: 1765984136222
       isPrivate: false
@@ -295,7 +295,7 @@ collection:
   - url: "{{baseUrl}}/recipes"
     name: Create Recipe [mousse de maracujá ]
     meta:
-      id: req_df31e58e14634b07a19a12ae117a81fb
+      id: req_8399c1b27bd643a2a8820f6044447e66
       created: 1765982127963
       modified: 1765988045706
       isPrivate: false
@@ -351,7 +351,7 @@ collection:
   - url: "{{baseUrl}}/recipes"
     name: Create Recipe [ Pudim de Leite Condensado ]
     meta:
-      id: req_4df2d9ea905b4a1bb871ab209f1086df
+      id: req_aa388041747645b98dec9ffb6b7b50bf
       created: 1765982289024
       modified: 1765988097222
       isPrivate: false
@@ -414,7 +414,7 @@ collection:
   - url: "{{baseUrl}}/recipes/547e7294-3614-4acb-a881-dabe98fef8e6"
     name: Delete Recipe
     meta:
-      id: req_2cc684424579435899eba6ddd6d3c9c0
+      id: req_5f07c4bf965b4f0fa33f55aea6738a48
       created: 1765982500269
       modified: 1765984168605
       isPrivate: false
@@ -437,7 +437,7 @@ collection:
   - url: "{{baseUrl}}/recipes"
     name: Create Recipe [ Espaguete à Bolonhesa ]
     meta:
-      id: req_8b670ea4dfaa416b953816e99655f19a
+      id: req_584a50a0cee840e2845c5c7f06d68806
       created: 1765983575907
       modified: 1765988158334
       isPrivate: false
@@ -505,7 +505,7 @@ collection:
   - url: "{{baseUrl}}/categories"
     name: Create Category Sobremesa
     meta:
-      id: req_5a007755e4754bbb852cd98a4fa3554b
+      id: req_7405ec86cd974d00b784628c7871406a
       created: 1767483957575
       modified: 1767483971062
       isPrivate: false
@@ -537,7 +537,7 @@ collection:
   - url: "{{baseUrl}}/categories"
     name: Create Category Entrada
     meta:
-      id: req_5f037dca06cd48389bd37da7443e35b7
+      id: req_103ecbd7d2ad4610a23e5fc18a9d4dea
       created: 1767484146539
       modified: 1767484154757
       isPrivate: false
@@ -569,7 +569,7 @@ collection:
   - url: "{{baseUrl}}/categories"
     name: Create Category Bebidas
     meta:
-      id: req_0e71902c4dca43b6a08110936940b197
+      id: req_4abd911ebc4e4eeeb8d2fa3aff3b092c
       created: 1767484191310
       modified: 1767484226495
       isPrivate: false
@@ -598,16 +598,155 @@ collection:
         send: true
         store: true
       rebuildPath: true
+  - url: "{{baseUrl}}/recipes"
+    name: Create Recipe [ Vitamina de Banana ]
+    meta:
+      id: req_64def959c3024e9092a15f5928a43c0b
+      created: 1767561016886
+      modified: 1767561032372
+      isPrivate: false
+      description: ""
+      sortKey: -1759189777721.6758
+    method: POST
+    body:
+      mimeType: application/json
+      text: |
+        {
+          "title": "Vitamina de Banana",
+          "description": "Bebida cremosa e nutritiva",
+          "servings": 2,
+          "categoryId": "b3231c2b-6c14-4c9b-87b0-ab31161cc67a",
+          "ingredients": [
+            { "name": "Banana", "quantity": 2, "unit": "unidades" },
+            { "name": "Leite", "quantity": 300, "unit": "ml" },
+            { "name": "Açúcar", "quantity": 1, "unit": "colher" }
+          ],
+          "steps": [
+            "Descascar as bananas",
+            "Colocar todos os ingredientes no liquidificador",
+            "Bater até ficar homogêneo",
+            "Servir gelado"
+          ]
+        }
+    headers:
+      - name: Content-Type
+        value: application/json
+      - name: User-Agent
+        value: insomnia/12.1.0
+        description: ""
+        disabled: false
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: "{{baseUrl}}/recipes"
+    name: Create Recipe [ Salada Verde Simples ]
+    meta:
+      id: req_295ff8c16fc74ed087cd279795fbf01b
+      created: 1767561072855
+      modified: 1767561091592
+      isPrivate: false
+      description: ""
+      sortKey: -1759075246044.9766
+    method: POST
+    body:
+      mimeType: application/json
+      text: |
+        {
+          "title": "Salada Verde Simples",
+          "description": "Entrada leve e refrescante",
+          "servings": 3,
+          "categoryId": "a29feaf6-6f9e-49ed-8bdc-78058ad61583",
+          "ingredients": [
+            { "name": "Alface", "quantity": 1, "unit": "maço" },
+            { "name": "Tomate", "quantity": 2, "unit": "unidades" },
+            { "name": "Azeite", "quantity": 2, "unit": "colheres" },
+            { "name": "Sal", "quantity": 1, "unit": "pitada" }
+          ],
+          "steps": [
+            "Lavar bem os vegetais",
+            "Picar o tomate",
+            "Misturar todos os ingredientes",
+            "Temperar com azeite e sal"
+          ]
+        }
+    headers:
+      - name: Content-Type
+        value: application/json
+      - name: User-Agent
+        value: insomnia/12.1.0
+        description: ""
+        disabled: false
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: "{{baseUrl}}/recipes"
+    name: Create Recipe [ Mousse de Chocolate ]
+    meta:
+      id: req_0cd40249058c4e9c90ecab188783532a
+      created: 1767561127212
+      modified: 1767561138017
+      isPrivate: false
+      description: ""
+      sortKey: -1759037068819.4102
+    method: POST
+    body:
+      mimeType: application/json
+      text: |
+        {
+          "title": "Mousse de Chocolate",
+          "description": "Sobremesa cremosa e gelada",
+          "servings": 6,
+          "categoryId": "b5226dcb-c236-4578-9a56-5a8e27e3fd0d",
+          "ingredients": [
+            { "name": "Chocolate Meio Amargo", "quantity": 200, "unit": "g" },
+            { "name": "Creme de Leite", "quantity": 1, "unit": "caixa" },
+            { "name": "Ovos", "quantity": 3, "unit": "unidades" },
+            { "name": "Açúcar", "quantity": 3, "unit": "colheres" }
+          ],
+          "steps": [
+            "Derreter o chocolate em banho-maria",
+            "Misturar o creme de leite",
+            "Separar claras e gemas",
+            "Bater as claras em neve",
+            "Incorporar tudo delicadamente",
+            "Levar à geladeira por 2 horas"
+          ]
+        }
+    headers:
+      - name: Content-Type
+        value: application/json
+      - name: User-Agent
+        value: insomnia/12.1.0
+        description: ""
+        disabled: false
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
 cookieJar:
   name: Default Jar
   meta:
-    id: jar_6f46dde08ff3401b910ef23ef2bad803
+    id: jar_f897229276014b76a8b60d4b8e6c5b5c
     created: 1765412665351
     modified: 1765412665351
 environments:
   name: Base Environment
   meta:
-    id: env_0b9c682bb38b49c48abc0f8e6bd2cb44
+    id: env_b170e9ab20734a689a4d1566e89ee7b6
     created: 1765412665334
     modified: 1765413196355
     isPrivate: false
