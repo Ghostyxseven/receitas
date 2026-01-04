@@ -33,28 +33,17 @@ export function recipesRoutes(service: IRecipeService) {
         description: req.body.description,
         ingredients: Array.isArray(req.body.ingredients)
           ? req.body.ingredients.map((i: any) => ({
-            name: String(i?.name ?? ""),
-            quantity: Number(i?.quantity ?? 0),
-            unit: String(i?.unit ?? ""),
-          }))
+              name: String(i?.name ?? ""),
+              quantity: Number(i?.quantity ?? 0),
+              unit: String(i?.unit ?? ""),
+            }))
           : [],
         steps: Array.isArray(req.body.steps) ? req.body.steps.map(String) : [],
         servings: Number(req.body.servings ?? 0),
         categoryId: String(req.body.categoryId ?? ""),
-        status: req.body.status, //
+        status: req.body.status,
       })
       res.status(201).json(item)
-    } catch (error) {
-      next(error)
-    }
-  })
-  
-
-  router.post("/shopping-list", async (req, res, next) => {
-    try {
-      const recipeIds = req.body.recipeIds
-      const result = await service.generateShoppingList(recipeIds)
-      res.json(result)
     } catch (error) {
       next(error)
     }
@@ -69,7 +58,7 @@ export function recipesRoutes(service: IRecipeService) {
         steps: req.body.steps,
         servings: req.body.servings,
         categoryId: req.body.categoryId,
-        status: req.body.status,//
+        status: req.body.status,
       })
       res.json(item)
     } catch (error) {
@@ -86,29 +75,19 @@ export function recipesRoutes(service: IRecipeService) {
     }
   })
 
-  // Escalonamento de porções (sem persistência)
-  router.post("/:id/scale", async (req, res, next) => {
+  // Lista de compras consolidada
+  router.post("/shopping-list", async (req, res, next) => {
     try {
-      const { id } = req.params;
-      // Pode vir no corpo (POST) ou na query (?portions=8)
-      const portions = Number(req.body.portions ?? req.query.portions);
-
-      // Validação rápida
-      if (!portions || portions <= 0) {
-        return res.status(400).json({ error: "Portions must be greater than 0" });
+      const recipeIds = Array.isArray(req.body.recipeIds) ? req.body.recipeIds : []
+      if (recipeIds.length === 0) {
+        return res.status(400).json({ error: "recipeIds array is required and cannot be empty" })
       }
-
-      // Chama o método do serviço
-      const scaled = await service.scaleRecipe(id, portions);
-
-      // Retorna a nova versão da receita (sem salvar)
-      res.status(200).json(scaled);
-
-    } catch (err) {
-      next(err); // middleware global de erro trata a resposta
+      const shoppingList = await service.consolidateShoppingList(recipeIds)
+      res.json(shoppingList)
+    } catch (error) {
+      next(error)
     }
-  });
+  })
 
   return router
 }
-
