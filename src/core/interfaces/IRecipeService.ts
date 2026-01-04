@@ -6,4 +6,5 @@ export interface IRecipeService {
   create(input: CreateRecipeInput): Promise<Recipe>
   update(id: string, data: Partial<CreateRecipeInput>): Promise<Recipe>
   delete(id: string): Promise<void>
-  generateShoppingList(recipeIds: string[]): Promise<{ ingredientId: string; ingredientName: string; unit: string; totalQuantity: number }[]>}
+  consolidateShoppingList(ids: string[]): Promise<{ ingredientId: string; name: string; quantity: number; unit: string }[]>
+}

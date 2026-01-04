@@ -34,7 +34,7 @@ export class RecipeService implements IRecipeService {
       const searchQuery = filter.search.trim().toLowerCase()
       const allIngredients = await this.ingredientService.list()
       const nameById = new Map(allIngredients.map((ing) => [ing.id, ing.name.toLowerCase()]))
-
+      
       items = items.filter((recipe) => {
         if (recipe.title.toLowerCase().includes(searchQuery)) return true
         if (recipe.description && recipe.description.toLowerCase().includes(searchQuery)) return true
@@ -64,10 +64,10 @@ export class RecipeService implements IRecipeService {
     // Process Ingredients
     const incoming = Array.isArray(input.ingredients)
       ? input.ingredients.map((i) => ({
-        name: String(i.name ?? "").trim(),
-        quantity: Number(i.quantity ?? 0),
-        unit: String(i.unit ?? "").trim(),
-      }))
+          name: String(i.name ?? "").trim(),
+          quantity: Number(i.quantity ?? 0),
+          unit: String(i.unit ?? "").trim(),
+        }))
       : []
 
     if (incoming.length === 0) throw new Error("Ingredients are required")
@@ -86,7 +86,7 @@ export class RecipeService implements IRecipeService {
     }
 
     const steps = Array.isArray(input.steps) ? input.steps.map((s) => String(s)) : []
-
+    
     const servings = Number(input.servings)
     if (!(servings > 0)) throw new Error("Servings must be greater than 0")
 
@@ -152,10 +152,10 @@ export class RecipeService implements IRecipeService {
     if (data.ingredients !== undefined) {
       const incoming = Array.isArray(data.ingredients)
         ? data.ingredients.map((i) => ({
-          name: String(i.name ?? "").trim(),
-          quantity: Number(i.quantity ?? 0),
-          unit: String(i.unit ?? "").trim(),
-        }))
+            name: String(i.name ?? "").trim(),
+            quantity: Number(i.quantity ?? 0),
+            unit: String(i.unit ?? "").trim(),
+          }))
         : []
 
       incoming.forEach((i) => {
@@ -198,5 +198,67 @@ export class RecipeService implements IRecipeService {
     }
     
     store.recipes.splice(idx, 1)
+  }
+
+  async consolidateShoppingList(ids: string[]): Promise<{ ingredientId: string; name: string; quantity: number; unit: string }[]> {
+    // Validar que o array não está vazio
+    if (!Array.isArray(ids) || ids.length === 0) {
+      throw new Error("recipeIds array is required and cannot be empty")
+    }
+
+    // Buscar todas as receitas
+    const recipes: Recipe[] = []
+    for (const id of ids) {
+      try {
+        const recipe = await this.get(id)
+        recipes.push(recipe)
+      } catch (error) {
+        throw new Error(`Recipe with id '${id}' not found`)
+      }
+    }
+
+    // Mapear nomes dos ingredientes
+    const allIngredients = await this.ingredientService.list()
+    const ingredientMap = new Map(allIngredients.map(ing => [ing.id, ing.name]))
+
+    // Consolidar ingredientes
+    // Chave única: ingredientId + unit (mesmo ingrediente + mesma unidade = somar)
+    const consolidated = new Map<string, { ingredientId: string; quantity: number; unit: string }>()
+
+    for (const recipe of recipes) {
+      for (const ingredient of recipe.ingredients) {
+        // Criar chave única: ingredientId + unit
+        const key = `${ingredient.ingredientId}:${ingredient.unit}`
+        
+        if (consolidated.has(key)) {
+          // Se já existe, somar a quantidade
+          const existing = consolidated.get(key)!
+          existing.quantity += ingredient.quantity
+        } else {
+          // Se não existe, criar novo
+          consolidated.set(key, {
+            ingredientId: ingredient.ingredientId,
+            quantity: ingredient.quantity,
+            unit: ingredient.unit
+          })
+        }
+      }
+    }
+
+    // Converter para lista e adicionar nomes dos ingredientes
+    const shoppingList = Array.from(consolidated.values()).map(item => {
+      const ingredientName = ingredientMap.get(item.ingredientId)
+      if (!ingredientName) {
+        throw new Error(`Ingredient with id '${item.ingredientId}' not found`)
+      }
+      return {
+        ingredientId: item.ingredientId,
+        name: ingredientName,
+        quantity: item.quantity,
+        unit: item.unit
+      }
+    })
+
+    return shoppingList
   }
 }
