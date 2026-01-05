@@ -93,7 +93,7 @@ export function recipesRoutes(service: IRecipeService) {
   router.post("/:id/scale", async (req, res, next) => {
     try {
       const { id } = req.params;
-      // Pode vir no corpo (POST) ou na query (?portions=8)
+      // Pode vir no corpo (POST)
       const portions = Number(req.body.portions ?? req.query.portions);
 
       // Validação rápida
@@ -111,7 +111,6 @@ export function recipesRoutes(service: IRecipeService) {
       next(err); // middleware global de erro trata a resposta
     }
 
-    return router
   });
-
+  return router
 }
