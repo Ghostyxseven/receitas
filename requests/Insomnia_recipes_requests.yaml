@@ -2,15 +2,15 @@ type: collection.insomnia.rest/5.0
 schema_version: "5.1"
 name: Recipes
 meta:
-  id: wrk_5dd185b3acf844feabc609c2024a2ba5
-  created: 1767573896774
-  modified: 1767573896774
+  id: wrk_f5a65c48640746b69fcc543fa3130a72
+  created: 1767576025128
+  modified: 1767576025128
   description: ""
 collection:
   - url: "{{baseUrl}}/categories"
     name: List Categories
     meta:
-      id: req_31f9454dbdc94f448f2fa388c1b980e9
+      id: req_519b73154bfd45f4a46e08aae6e05fb9
       created: 1765412665489
       modified: 1765984087256
       isPrivate: false
@@ -33,7 +33,7 @@ collection:
   - url: "{{baseUrl}}/categories"
     name: Create Category
     meta:
-      id: req_f1616985d33d4f3cadf261655af8f78a
+      id: req_9aa65d31731a431980476275680d1e79
       created: 1765412821874
       modified: 1767573929917
       isPrivate: false
@@ -65,7 +65,7 @@ collection:
   - url: "{{baseUrl}}/categories/1de3de75-1f03-419e-ad86-d803d296ea17"
     name: Show Category
     meta:
-      id: req_846359903cd346bbb11c7c3c5808e05a
+      id: req_8803580b9b1b43b6916bee5ed722fdc0
       created: 1765414569582
       modified: 1765984098022
       isPrivate: false
@@ -88,7 +88,7 @@ collection:
   - url: "{{baseUrl}}/recipes"
     name: List Recipes
     meta:
-      id: req_9b7dd66907f24474bdf37a1bae814c2e
+      id: req_69c1eb6aff024109afb719711b2e1adb
       created: 1765414773717
       modified: 1765984124734
       isPrivate: false
@@ -111,7 +111,7 @@ collection:
   - url: "{{baseUrl}}/ingredients"
     name: List Ingredients
     meta:
-      id: req_49e1821482f8485794ca9080f076589b
+      id: req_ddcff805c6e64f20878aac69325b06f0
       created: 1765414831438
       modified: 1765984109514
       isPrivate: false
@@ -134,7 +134,7 @@ collection:
   - url: "{{baseUrl}}/ingredients"
     name: Create Ingredient
     meta:
-      id: req_8678b152395a419ab77bf624e11d1c16
+      id: req_eabd86dbea9d49a4921f895fb51c0cc7
       created: 1765980252169
       modified: 1765982776294
       isPrivate: false
@@ -162,7 +162,7 @@ collection:
   - url: "{{baseUrl}}/recipes"
     name: Create Recipe [ bolo de cenoura ]
     meta:
-      id: req_310e216b425a42d6bcf43fb7023ae8ab
+      id: req_61d6e11acfb74e2a8e3ef93381b9d61a
       created: 1765980403434
       modified: 1767482381036
       isPrivate: false
@@ -218,7 +218,7 @@ collection:
   - url: "{{baseUrl}}/recipes/5fd063f2-97bc-4451-86e2-aa4a3a50326a"
     name: Show Recipe
     meta:
-      id: req_b7458fd769574ec2bb153e9a57ebff7d
+      id: req_70d21ab4cb904745b0283ac83e91331f
       created: 1765980696089
       modified: 1765987699104
       isPrivate: false
@@ -241,7 +241,7 @@ collection:
   - url: "{{baseUrl}}/recipes/3dff9a9f-2c10-4567-b51a-4dbe42c9d04f"
     name: Update Recipe
     meta:
-      id: req_56b812bb37754bffb207acff893e4ed5
+      id: req_1ad63bc075e14699af3767f3cae6dcab
       created: 1765980898367
       modified: 1765980974664
       isPrivate: false
@@ -272,7 +272,7 @@ collection:
   - url: "{{baseUrl}}/recipes?categoryName=Sobremesas"
     name: List Recipes [CategoryName]
     meta:
-      id: req_2b9814f6d12f4d57b69effc6ac599b5f
+      id: req_01d4b5fdd3be4fd7bb638b71b8c26b01
       created: 1765981937371
       modified: 1765984136222
       isPrivate: false
@@ -295,7 +295,7 @@ collection:
   - url: "{{baseUrl}}/recipes"
     name: Create Recipe [mousse de maracujá ]
     meta:
-      id: req_a8cbd5d3d42143b199a484b0736bebd1
+      id: req_70170cbcbea748ab80dfcb0f8ccb7542
       created: 1765982127963
       modified: 1765988045706
       isPrivate: false
@@ -351,7 +351,7 @@ collection:
   - url: "{{baseUrl}}/recipes"
     name: Create Recipe [ Pudim de Leite Condensado ]
     meta:
-      id: req_602c30e445bc46418257ac4454247061
+      id: req_c42caa6e82084a918ee64b9c509b6ca0
       created: 1765982289024
       modified: 1765988097222
       isPrivate: false
@@ -414,7 +414,7 @@ collection:
   - url: "{{baseUrl}}/recipes/547e7294-3614-4acb-a881-dabe98fef8e6"
     name: Delete Recipe
     meta:
-      id: req_2ca236a6a3a549ce88fc1481c148d053
+      id: req_cb3c594d8fb548cc8446b1da64093905
       created: 1765982500269
       modified: 1765984168605
       isPrivate: false
@@ -437,7 +437,7 @@ collection:
   - url: "{{baseUrl}}/recipes"
     name: Create Recipe [ Espaguete à Bolonhesa ]
     meta:
-      id: req_84e8b554e3db472e998d3d284d7e0724
+      id: req_0d21b63c0194436ba01db6e949ecd9e6
       created: 1765983575907
       modified: 1765988158334
       isPrivate: false
@@ -505,7 +505,7 @@ collection:
   - url: "{{baseUrl}}/categories"
     name: Create Category Sobremesa
     meta:
-      id: req_5d0391936ffa4215bcfbd03a5695ade0
+      id: req_e3a5645f1c324cf1ac993c2f789b5269
       created: 1767483957575
       modified: 1767483971062
       isPrivate: false
@@ -537,7 +537,7 @@ collection:
   - url: "{{baseUrl}}/categories"
     name: Create Category Entrada
     meta:
-      id: req_a392149ee8ce467d85743b255d4ce38f
+      id: req_df642cbd46c042fab2a8c22da0e95e3e
       created: 1767484146539
       modified: 1767484154757
       isPrivate: false
@@ -569,7 +569,7 @@ collection:
   - url: "{{baseUrl}}/categories"
     name: Create Category Bebidas
     meta:
-      id: req_3d717fbf7a004552a3b730ddf41b0f4f
+      id: req_eba6510c5c7948a993d1736895bbf5b4
       created: 1767484191310
       modified: 1767484226495
       isPrivate: false
@@ -601,7 +601,7 @@ collection:
   - url: "{{baseUrl}}/recipes"
     name: Create Recipe [ Vitamina de Banana ]
     meta:
-      id: req_5c620eb8f0464ba788822b47b38bd4cb
+      id: req_3a689de33af149808fba3777641b09c2
       created: 1767561016886
       modified: 1767574119366
       isPrivate: false
@@ -646,7 +646,7 @@ collection:
   - url: "{{baseUrl}}/recipes"
     name: Create Recipe [ Salada Verde Simples ]
     meta:
-      id: req_83b90d21c5644138b5e10518a83f41bf
+      id: req_1d40638e7f49445e88d333712602fb5b
       created: 1767561072855
       modified: 1767561091592
       isPrivate: false
@@ -692,7 +692,7 @@ collection:
   - url: "{{baseUrl}}/recipes"
     name: Create Recipe [ Mousse de Chocolate ]
     meta:
-      id: req_ba17f98cce1e4eb18cffb3dd9be0a90f
+      id: req_61aa2d42ffbf4b22b61009b414a9887a
       created: 1767561127212
       modified: 1767561138017
       isPrivate: false
@@ -740,7 +740,7 @@ collection:
   - url: "{{baseUrl}}/recipes/838b97a9-aecf-4152-a5ae-769edf5a765f/scale"
     name: Scale Recipe
     meta:
-      id: req_d0bed89b98f5452d9972d2ea9b1e2f2e
+      id: req_d223757966884518bba330a5a980e438
       created: 1767572585945
       modified: 1767573149468
       isPrivate: false
@@ -771,7 +771,7 @@ collection:
   - url: "{{baseUrl}}/recipes/shopping-list"
     name: Shopping List
     meta:
-      id: req_e2025da6339e45f1bac7ef924a21cf0b
+      id: req_e29eccd262f4458788ab75318b85dc9b
       created: 1767573912085
       modified: 1767574402921
       isPrivate: false
@@ -799,16 +799,100 @@ collection:
         send: true
         store: true
       rebuildPath: true
+  - url: "{{baseUrl}}/ingredients"
+    name: Create Ingredient [ Creme de Leite ]
+    meta:
+      id: req_6b763041a06f4d4f9b8f9ea71d5f56e4
+      created: 1767576098536
+      modified: 1767576188214
+      isPrivate: false
+      description: ""
+      sortKey: -1764954538782.2031
+    method: POST
+    body:
+      mimeType: application/json
+      text: '{  "name": "Creme de Leite" }'
+    headers:
+      - name: Content-Type
+        value: application/json
+      - name: User-Agent
+        value: insomnia/12.1.0
+        description: ""
+        disabled: false
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: "{{baseUrl}}/ingredients"
+    name: Create Ingredient [ Carne Moída ]
+    meta:
+      id: req_9a83653f3b2b4389a1138bc28b7c005c
+      created: 1767576255994
+      modified: 1767576262769
+      isPrivate: false
+      description: ""
+      sortKey: -1764878184331.0703
+    method: POST
+    body:
+      mimeType: application/json
+      text: '{  "name": "Carne Moída" }'
+    headers:
+      - name: Content-Type
+        value: application/json
+      - name: User-Agent
+        value: insomnia/12.1.0
+        description: ""
+        disabled: false
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: "{{baseUrl}}/ingredients"
+    name: Create Ingredient [ Leite Integral ]
+    meta:
+      id: req_2577eec83b644b11b9c2ab6d2bec2554
+      created: 1767576370265
+      modified: 1767576378922
+      isPrivate: false
+      description: ""
+      sortKey: -1764916361556.6367
+    method: POST
+    body:
+      mimeType: application/json
+      text: '{  "name": "Leite Integral" }'
+    headers:
+      - name: Content-Type
+        value: application/json
+      - name: User-Agent
+        value: insomnia/12.1.0
+        description: ""
+        disabled: false
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
 cookieJar:
   name: Default Jar
   meta:
-    id: jar_e58b16fc009f499ba181f7271e91482c
+    id: jar_661212610098435a94c798c90d3c6634
     created: 1765412665351
     modified: 1765412665351
 environments:
   name: Base Environment
   meta:
-    id: env_3abefd88d1d945c18e6bbb9605e0f94a
+    id: env_3f6adacb3e204b37bded01a059e9df0e
     created: 1765412665334
     modified: 1765413196355
     isPrivate: false
