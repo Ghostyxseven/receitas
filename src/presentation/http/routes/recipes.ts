@@ -112,5 +112,28 @@ export function recipesRoutes(service: IRecipeService) {
     }
 
   });
+
+  // Publicar receita (draft → published)
+  router.post("/:id/publish", async (req, res, next) => {
+    try {
+      const { id } = req.params;
+      const recipe = await service.publish(id);
+      res.json(recipe);
+    } catch (error) {
+      next(error);
+    }
+  });
+
+  // Arquivar receita (→ archived)
+  router.post("/:id/archive", async (req, res, next) => {
+    try {
+      const { id } = req.params;
+      const recipe = await service.archive(id);
+      res.json(recipe);
+    } catch (error) {
+      next(error);
+    }
+  });
+
   return router
 }
