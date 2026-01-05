@@ -1,0 +1,145 @@
+type: collection.insomnia.rest/5.0
+schema_version: "5.1"
+name: Recipes
+meta:
+  id: wrk_37c3b453ce894c559b5f32ee863c7e2e
+  created: 1767528819872
+  modified: 1767528819872
+  description: ""
+collection:
+  - url: "{{baseUrl}}/ingredients"
+    name: Get Ingredients
+    meta:
+      id: req_0ef989d6fbeb4096b97f31cf5bf84605
+      created: 1767534587728
+      modified: 1767535949406
+      isPrivate: false
+      description: ""
+      sortKey: -1767534587728
+    method: GET
+    body:
+      mimeType: application/json
+      text: "{
+
+        \t
+
+        \t\"name\": \"Leite Condensado\"
+
+        }
+
+        \t"
+    headers:
+      - name: Content-Type
+        value: application/json
+      - name: User-Agent
+        value: insomnia/12.2.0
+        description: ""
+        disabled: false
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: "{{baseUrl}}/ingredients"
+    name: Create Ingredient
+    meta:
+      id: req_19ed318594f8436080a4bf46f024dec7
+      created: 1767535609326
+      modified: 1767537712809
+      isPrivate: false
+      description: ""
+      sortKey: -1767535609326
+    method: POST
+    body:
+      mimeType: application/json
+      text: ""
+    headers:
+      - name: Content-Type
+        value: application/json
+      - name: User-Agent
+        value: insomnia/12.2.0
+        description: ""
+        disabled: false
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: "{{baseUrl}}/ingredients/{{ingredientId}}"
+    name: Update Ingredient
+    meta:
+      id: req_7a2cda61eb6c4405b8f604237ac79169
+      created: 1767535640979
+      modified: 1767537705980
+      isPrivate: false
+      description: ""
+      sortKey: -1767535640979
+    method: PUT
+    body:
+      mimeType: application/json
+      text: ""
+    headers:
+      - name: Content-Type
+        value: application/json
+      - name: User-Agent
+        value: insomnia/12.2.0
+        description: ""
+        disabled: false
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: "{{baseUrl}}/ingredients/{{ingredientId}}"
+    name: Delete Ingredient
+    meta:
+      id: req_0417e862b8e348919f8bb6f8dc569544
+      created: 1767535698776
+      modified: 1767538081780
+      isPrivate: false
+      description: ""
+      sortKey: -1767535698776
+    method: DELETE
+    body:
+      mimeType: application/json
+      text: ""
+    headers:
+      - name: Content-Type
+        value: application/json
+      - name: User-Agent
+        value: insomnia/12.2.0
+        description: ""
+        disabled: false
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+cookieJar:
+  name: Default Jar
+  meta:
+    id: jar_8759ac3d572b42409c23bf8c3c19172a
+    created: 1765412665351
+    modified: 1765412665351
+environments:
+  name: Base Environment
+  meta:
+    id: env_0b7b16d2f3ee4438958fb8d05b4c8c56
+    created: 1765412665334
+    modified: 1767536287990
+    isPrivate: false
+  data:
+    baseUrl: http://localhost:3333
+    ingredientId: 588aaca1-7345-48ce-9b01-ce771e2f4f34
