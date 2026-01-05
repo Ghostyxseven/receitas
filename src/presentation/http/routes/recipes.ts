@@ -33,10 +33,10 @@ export function recipesRoutes(service: IRecipeService) {
         description: req.body.description,
         ingredients: Array.isArray(req.body.ingredients)
           ? req.body.ingredients.map((i: any) => ({
-              name: String(i?.name ?? ""),
-              quantity: Number(i?.quantity ?? 0),
-              unit: String(i?.unit ?? ""),
-            }))
+            name: String(i?.name ?? ""),
+            quantity: Number(i?.quantity ?? 0),
+            unit: String(i?.unit ?? ""),
+          }))
           : [],
         steps: Array.isArray(req.body.steps) ? req.body.steps.map(String) : [],
         servings: Number(req.body.servings ?? 0),
@@ -89,5 +89,29 @@ export function recipesRoutes(service: IRecipeService) {
     }
   })
 
-  return router
+  // Escalonamento de porções (sem persistência)
+  router.post("/:id/scale", async (req, res, next) => {
+    try {
+      const { id } = req.params;
+      // Pode vir no corpo (POST) ou na query (?portions=8)
+      const portions = Number(req.body.portions ?? req.query.portions);
+
+      // Validação rápida
+      if (!portions || portions <= 0) {
+        return res.status(400).json({ error: "Portions must be greater than 0" });
+      }
+
+      // Chama o método do serviço
+      const scaled = await service.scaleRecipe(id, portions);
+
+      // Retorna a nova versão da receita (sem salvar)
+      res.status(200).json(scaled);
+
+    } catch (err) {
+      next(err); // middleware global de erro trata a resposta
+    }
+
+    return router
+  });
+
 }
