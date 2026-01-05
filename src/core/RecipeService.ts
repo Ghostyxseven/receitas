@@ -172,16 +172,6 @@ export class RecipeService implements IRecipeService {
       }
       updated.ingredients = resolved
     }
-
-    // Atualizar status se fornecido
-    if (data.status !== undefined) {
-      const status = data.status
-      if (!["draft", "published", "archived"].includes(status)) {
-        throw new Error("Invalid status. Must be 'draft', 'published' or 'archived'")
-      }
-      updated.status = status
-    }
-
     store.recipes[idx] = updated
     return updated
   }
@@ -297,6 +287,37 @@ export class RecipeService implements IRecipeService {
     // Retorna a nova versão da receita
     return scaledRecipe;
 
+  }
+
+  async publish(id: string): Promise<Recipe> {
+    const idx = store.recipes.findIndex(r => r.id === id)
+    if (idx < 0) throw new Error("Recipe not found")
+    
+    const recipe = store.recipes[idx]
+    
+    // Receitas archived não podem ser publicadas
+    if (recipe.status === "archived") {
+      throw new Error("Archived recipes cannot be published")
+    }
+    
+    // Atualiza o status para published
+    const updated = { ...recipe, status: "published" as RecipeStatus }
+    store.recipes[idx] = updated
+    
+    return updated
+  }
+
+  async archive(id: string): Promise<Recipe> {
+    const idx = store.recipes.findIndex(r => r.id === id)
+    if (idx < 0) throw new Error("Recipe not found")
+    
+    const recipe = store.recipes[idx]
+    
+    // Atualiza o status para archived
+    const updated = { ...recipe, status: "archived" as RecipeStatus }
+    store.recipes[idx] = updated
+    
+    return updated
   }
 
 }
