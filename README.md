@@ -328,7 +328,7 @@ Regra de Porções (Escalonamento) (Wesley)
 
 ---
 
- Lista de Compras (Marcos)
+#### Lista de Compras (Marcos)
 
 **Branch**: `feature/lista-compras-marcos`
 
@@ -352,7 +352,7 @@ Regra de Porções (Escalonamento) (Wesley)
 
 ---
 
-Estados da Receita (Josiane)
+####  Estados da Receita (Josiane)
 
 **Branch**: `feature/estado-receita-josiane`
 
@@ -380,7 +380,7 @@ Estados da Receita (Josiane)
 - **Aceite**: regras respeitadas em todas operações.
 
 
-Integração e Revisão (Micael)
+####  Integração e Revisão (Micael)
 
 **Branch**: `dev` (e merge final em `main`)
 
